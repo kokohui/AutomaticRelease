@@ -1,0 +1,76 @@
+﻿✨热相关介绍操作流程：
+
+一、创建数据库和数据表
+
+1、连接mysql数据库，创建名为tw的数据库，sql命令如下：
+create database tw charset=utf8mb4;
+
+
+
+2、创建数据表，记录注册成功的账号信息，sql命令如下：
+CREATE TABLE id_info (id INT AUTO_INCREMENT PRIMARY KEY,name VARCHAR(20),
+ company_name VARCHAR(20),phone_number VARCHAR(20), 
+mobile_number VARCHAR(20),key_products VARCHAR(20), country_id INT(3),email VARCHAR(20), 
+password VARCHAR(20),messenger_type VARCHAR(20), messenger_id VARCHAR(20));
+
+
+
+3、创建数据表，记录从网站上抓取的商品类目ID，sql命令如下：
+CREATE TABLE ind_info (id INT(10),name VARCHAR(20));
+
+
+
+
+二、项目环境安装及运行
+
+1、将项目解压，进入TradeWheel目录，执行下面命令，即可安装需要环境（也可以自行安装，需求模块不多）：
+
+pip install -r requirements.txt
+
+
+2、第一次运行项目记得先执行一次get_ubd_id.py，获取一下类目id，如果网站上提供给类目信息不变，不需要再次执行
+
+
+3、要注册，则执行regist_id.py，注意传入对应的数据
+
+
+4、要发布商品，则执行release_goods.py，注意传入对应的数据
+
+
+
+
+三、项目结构介绍
+
+1、get_ubd_id.py:
+该文件是用来抓取网站提供的
+商品类目信息的爬虫，如果网站类目不会变化，只需要执行一次即可，执行完后会将抓取到的所有类目对应的id存入mysql数据库的
+tw库ind_info表中，
+因为post请求的时候需要用到类目id。
+
+
+
+2、operation_mysql.py :
+该文件里面简单封装了对数据库的相关操作类，不要修改
+
+
+
+3、TW_post.py:
+这个文件封装了实现注册和实现发布商品所有功能的类，不要修改
+
+
+
+4、regist_id.py:
+这个文件是用来传入注册账号是
+需要用到的数据，修改字典里面的值，并执行脚本，就可以实现注册，并将注册好的账号自动存入MySQL的tw库id_info表中
+
+
+
+5、release_goods.py:
+这个文件用来传入发布商品用到的数据，修改对应的值，并执行脚本，可实现自动登录并发布商品，
+
+
+
+6、requirements.txt:
+项目环境需求
+
+标题必须是英文的，不能用中文字符
